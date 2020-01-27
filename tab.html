@@ -22,6 +22,25 @@
       text-shadow: 1px 1px 1px #666;
     }
 
+    .top-right {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5vh;
+      font-weight: 200;
+      color: white;
+      text-shadow: 1px 1px 1px #666;
+    }
+
+    .top-right a {
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .top-right a:hover {
+      text-decoration: underline;
+    }
+
     .right-corner {
       position: absolute;
       bottom: 0;
@@ -43,18 +62,27 @@
     .right-corner span#location{
       font-size: 1.5vh;
     }
+    .right-corner span.temp-wrapper{
+      font-size: 15px;
+      text-align: center;
+    }
     .right-corner span#temp{
       font-size: 3vh;
-      text-align: center;
+      display: inline;
     }
   </style>
   <body>
     <div id="main">
       <div class="left-corner"><div id="image-desc"></div></div>
+      <div class="top-right">
+        <a id="bookmark">Bookmark</a>
+        <a id="history">History</a>
+      </div>
+
       <div class="right-corner">
         <div id="time">00:00</div>
         <div id="weather">
-          <span id="temp">29&#8457</span>
+          <span class="temp-wrapper"><span id="temp">29</span>&#8457</span>
           <span id="location">Default location</span>
         </div>
       </div>

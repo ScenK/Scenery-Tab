@@ -24,7 +24,8 @@ class Scenery {
         key: '9e1ae36ae02fffc9718fd0693ec97eb2'
       },
       PEXELS: {
-        url: 'https://api.pexels.com/v1/curated?',
+        // url: 'https://api.pexels.com/v1/curated?',
+        url: 'https://api.pexels.com/v1/search?',
         name: 'pexels',
         key: '563492ad6f9170000100000193020503455d40199f42e79cda3be940'
       }
@@ -32,8 +33,9 @@ class Scenery {
   }
 
   async getPexelsImage() {
-    const randImage = Math.floor(Math.random() * 1000) + 1; // returns a random integer from 1 to 1000
-    const api = `${this.API.PEXELS.url}per_page=1&page=${randImage}`
+    const randImage = Math.floor(Math.random() * 100) + 1; // returns a random integer from 1 to 1000
+    // const api = `${this.API.PEXELS.url}per_page=1&page=${randImage}`
+    const api = `${this.API.PEXELS.url}query=scenery landscape&per_page=1&page=${randImage}`
     const resp = await fetch(api, {
       headers: { Authorization: this.API.PEXELS.key }
     })
@@ -94,7 +96,8 @@ class Scenery {
 
   async setPexelsImage() {
     const resp = await this.getPexelsImage()
-    const img = resp.photos[0].src.large2x
+    const img = resp.photos[0].src.original
+    // const img = resp.photos[0].src.large2x
     const desc = resp.photos[0].photographer
     try {
       document.getElementById('main').style.backgroundImage = `url(${img})`
@@ -172,7 +175,7 @@ class SceneryTab {
   async setWeather() {
     const weatherData = await this.getWeather()
     try {
-      document.getElementById('temp').innerHTML = `${Math.floor(weatherData.main.temp)}&#8457`
+      document.getElementById('temp').innerHTML = Math.floor(weatherData.main.temp)
       document.getElementById('location').textContent = weatherData.name
     } catch (err) {
 
@@ -207,6 +210,12 @@ async function main() {
   st.setWeather()
   st.setBackgroundImage()
   st.setCurrentTime()
+  document.getElementById('history').addEventListener('click', () => {
+    chrome.tabs.create({ "url": "chrome://history", "active": true });
+  })
+  document.getElementById('bookmark').addEventListener('click', () => {
+    chrome.tabs.create({ "url": "chrome://bookmarks", "active": true });
+  })
 }
 
 main()
