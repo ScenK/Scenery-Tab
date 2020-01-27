@@ -9,13 +9,39 @@ class Scenery {
         url: 'https://api.nasa.gov/planetary/apod?',
         name: 'nasa',
         key: 'LVNeWXbmsardIBvstFHdPPfT8LGlbApoMprJMUhq'
+      },
+      FLICKR: {
+        url: 'https://api.flickr.com/services/rest?',
+        name: 'flickr',
+        secret: 'a6fe68710a02e56d',
+        key: '9e1ae36ae02fffc9718fd0693ec97eb2'
       }
+
     }
   }
 
+  async getFlickrImage() {
+    const nsid = '91805169@N04'
+    // const api = (`${this.API.FLICKR.url}method=flickr.photos.search&text=travel 1080&media=photo&in_gallery=true&extras=original_format&format=json&nojsoncallback=1&api_key=${this.API.FLICKR.key}`)
+    const api = (`${this.API.FLICKR.url}method=flickr.people.getPhotos&extras=original_format&format=json&nojsoncallback=1&api_key=${this.API.FLICKR.key}&secret=${this.API.FLICKR.secret}&user_id=${nsid}`)
+    const resp = await fetch(api)
+    return await resp.json()
+  }
+
+  async getNewImageIndex() {
+    return new Promise((done) => {
+      chrome.storage.sync.get(['imageIndex'], (result) => {
+        const index = result.imageIndex ? result.imageIndex : 0
+        chrome.storage.sync.set({imageIndex: index >= 7 ? 0 : index + 1}, () => {
+          done(index)
+        })
+      });
+    })
+  }
+
   async getBingImage() {
-    const randImage = Math.floor(Math.random() * 7) + 1; // returns a random integer from 1 to 7
-    const api = `${this.API.BING.url}&idx=${randImage}&n=100&mkt=en-US`
+    const randImage = await this.getNewImageIndex()
+    const api = `${this.API.BING.url}&idx=${randImage}&n=10&mkt=en-US`
     console.log(api)
     const resp = await fetch(api)
     return await resp.json()
@@ -29,6 +55,21 @@ class Scenery {
     const api = `${this.API.NASA.url}date=${formatedDate}&hd=true&api_key=${this.API.NASA.key}`
     const resp = await fetch(api)
     return await resp.json()
+  }
+
+  async setFlickrImage() {
+    const randImage = Math.floor(Math.random() * 100) + 1; // returns a random integer from 1 to 100
+    const resp = await this.getFlickrImage()
+    const pickedPhoto = resp.photos.photo[randImage]
+    const img = `https://farm${pickedPhoto.farm}.staticflickr.com/${pickedPhoto.server}/${pickedPhoto.id}_${pickedPhoto.secret}_b.jpg`
+    const desc = resp.title
+    try {
+      document.getElementById('main').style.backgroundImage = `url(${img})`
+      document.getElementById('image-desc').textContent = desc
+    } catch (err) {
+
+    }
+    console.log(resp)
   }
 
   async setNasaImage() {
@@ -92,7 +133,9 @@ class SceneryTab {
   }
 
   async setBingImage() {
-    await this.sc.setNasaImage()
+    // await this.sc.setNasaImage()
+    // await this.sc.setFlickrImage()
+    await this.sc.setBingImage()
   }
 
   getCurrentTime() {
@@ -112,7 +155,7 @@ class SceneryTab {
 
 async function main() {
   const st = new SceneryTab()
-  // st.setWeather()
+  st.setWeather()
   st.setBingImage()
   st.setCurrentTime()
 }
