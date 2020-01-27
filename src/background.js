@@ -3,6 +3,13 @@ class Scenery {
     this.API = {
       BING: {
         url: 'https://www.bing.com/HPImageArchive.aspx?format=js',
+        mkt: [
+          "ar-XA", "bg-BG", "cs-CZ", "da-DK", "de-AT", "de-CH", "de-DE", "el-GR", "en-AU", "en-CA", "en-GB", "en-ID", "en-IE", "en-IN",
+          "en-MY", "en-NZ", "en-PH", "en-SG", "en-US", "en-XA", "en-ZA", "es-AR", "es-CL", "es-ES", "es-MX", "es-US", "es-XL", "et-EE",
+          "fi-FI", "fr-BE", "fr-CA", "fr-CH", "fr-FR", "he-IL", "hr-HR", "hu-HU", "it-IT", "ja-JP", "ko-KR", "lt-LT", "lv-LV", "nb-NO",
+          "nl-BE", "nl-NL", "pl-PL", "pt-BR", "pt-PT", "ro-RO", "ru-RU", "sk-SK", "sl-SL", "sv-SE", "th-TH", "tr-TR", "uk-UA", "zh-CN",
+          "zh-HK", "zh-TW"
+        ],
         name: 'bing'
       },
       NASA: {
@@ -16,7 +23,6 @@ class Scenery {
         secret: 'a6fe68710a02e56d',
         key: '9e1ae36ae02fffc9718fd0693ec97eb2'
       }
-
     }
   }
 
@@ -39,9 +45,24 @@ class Scenery {
     })
   }
 
+  async getNewMktIndex() {
+    return new Promise((done) => {
+      chrome.storage.sync.get(['mktIndex'], (result) => {
+        const index = result.mktIndex ? result.mktIndex : 0
+        chrome.storage.sync.set({mktIndex: index >= 56 ? 0 : index + 1}, () => {
+          done(index)
+        })
+      });
+    })
+  }
+
   async getBingImage() {
+    // const randMkt = Math.floor(Math.random() * 56) + 1; // returns a random integer from 1 to 56
+    // const randImage = Math.floor(Math.random() * 6) + 1; // returns a random integer from 1 to 56
+    const randMkt = await this.getNewMktIndex()
     const randImage = await this.getNewImageIndex()
-    const api = `${this.API.BING.url}&idx=${randImage}&n=10&mkt=en-US`
+    console.log(randImage, randMkt)
+    const api = `${this.API.BING.url}&idx=${randImage}&n=10&mkt=${this.API.BING.mkt[randMkt]}`
     console.log(api)
     const resp = await fetch(api)
     return await resp.json()
