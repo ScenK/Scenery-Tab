@@ -22,8 +22,22 @@ class Scenery {
         name: 'flickr',
         secret: 'a6fe68710a02e56d',
         key: '9e1ae36ae02fffc9718fd0693ec97eb2'
+      },
+      PEXELS: {
+        url: 'https://api.pexels.com/v1/curated?',
+        name: 'pexels',
+        key: '563492ad6f9170000100000193020503455d40199f42e79cda3be940'
       }
     }
+  }
+
+  async getPexelsImage() {
+    const randImage = Math.floor(Math.random() * 1000) + 1; // returns a random integer from 1 to 1000
+    const api = `${this.API.PEXELS.url}per_page=1&page=${randImage}`
+    const resp = await fetch(api, {
+      headers: { Authorization: this.API.PEXELS.key }
+    })
+    return await resp.json()
   }
 
   async getFlickrImage() {
@@ -76,6 +90,19 @@ class Scenery {
     const api = `${this.API.NASA.url}date=${formatedDate}&hd=true&api_key=${this.API.NASA.key}`
     const resp = await fetch(api)
     return await resp.json()
+  }
+
+  async setPexelsImage() {
+    const resp = await this.getPexelsImage()
+    const img = resp.photos[0].src.large2x
+    const desc = resp.photos[0].photographer
+    try {
+      document.getElementById('main').style.backgroundImage = `url(${img})`
+      document.getElementById('image-desc').textContent = desc
+    } catch (err) {
+
+    }
+    console.log(resp)
   }
 
   async setFlickrImage() {
@@ -153,10 +180,11 @@ class SceneryTab {
     console.log(weatherData)
   }
 
-  async setBingImage() {
+  async setBackgroundImage() {
     // await this.sc.setNasaImage()
     // await this.sc.setFlickrImage()
-    await this.sc.setBingImage()
+    // await this.sc.setBingImage()
+    await this.sc.setPexelsImage()
   }
 
   getCurrentTime() {
@@ -177,7 +205,7 @@ class SceneryTab {
 async function main() {
   const st = new SceneryTab()
   st.setWeather()
-  st.setBingImage()
+  st.setBackgroundImage()
   st.setCurrentTime()
 }
 
