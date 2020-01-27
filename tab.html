@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    body {
+      height: 100vh;
+      width: 100%;
+      padding: 0%;
+      margin: 0%;
+    }
+    #main {
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+    }
+    .left-corner {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.5vh;
+      font-weight: 100;
+      color: white;
+      text-shadow: 1px 1px 1px #666;
+    }
+
+    .right-corner {
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+      font-size: 5vh;
+      font-weight: 100;
+      color: white;
+      text-shadow: 1px 1px 1px #666;
+    }
+    .right-corner div {
+      display: inline-block;
+    }
+    .right-corner div#time {
+      margin-right: 20px;
+    }
+    .right-corner span{
+      display: block;
+    }
+    .right-corner span#location{
+      font-size: 1.5vh;
+    }
+    .right-corner span#temp{
+      font-size: 3vh;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div class="left-corner"><div id="image-desc"></div></div>
+      <div class="right-corner">
+        <div id="time">00:00</div>
+        <div id="weather">
+          <span id="temp">29&#8457</span>
+          <span id="location">Default location</span>
+        </div>
+      </div>
+    </div>
+    <script src="src/background.js"></script>
+  </body>
+</html>
