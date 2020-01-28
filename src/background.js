@@ -17,12 +17,6 @@ class Scenery {
         name: 'nasa',
         key: 'LVNeWXbmsardIBvstFHdPPfT8LGlbApoMprJMUhq'
       },
-      FLICKR: {
-        url: 'https://api.flickr.com/services/rest?',
-        name: 'flickr',
-        secret: 'a6fe68710a02e56d',
-        key: '9e1ae36ae02fffc9718fd0693ec97eb2'
-      },
       PEXELS: {
         // url: 'https://api.pexels.com/v1/curated?',
         url: 'https://api.pexels.com/v1/search?',
@@ -39,14 +33,6 @@ class Scenery {
     const resp = await fetch(api, {
       headers: { Authorization: this.API.PEXELS.key }
     })
-    return await resp.json()
-  }
-
-  async getFlickrImage() {
-    const nsid = '91805169@N04'
-    // const api = (`${this.API.FLICKR.url}method=flickr.photos.search&text=travel 1080&media=photo&in_gallery=true&extras=original_format&format=json&nojsoncallback=1&api_key=${this.API.FLICKR.key}`)
-    const api = (`${this.API.FLICKR.url}method=flickr.people.getPhotos&extras=original_format&format=json&nojsoncallback=1&api_key=${this.API.FLICKR.key}&secret=${this.API.FLICKR.secret}&user_id=${nsid}`)
-    const resp = await fetch(api)
     return await resp.json()
   }
 
@@ -97,20 +83,6 @@ class Scenery {
     const img = resp.photos[0].src.original
     // const img = resp.photos[0].src.large2x
     const desc = resp.photos[0].photographer
-    try {
-      document.getElementById('main').style.backgroundImage = `url(${img})`
-      document.getElementById('image-desc').textContent = desc
-    } catch (err) {
-
-    }
-  }
-
-  async setFlickrImage() {
-    const randImage = Math.floor(Math.random() * 100) + 1; // returns a random integer from 1 to 100
-    const resp = await this.getFlickrImage()
-    const pickedPhoto = resp.photos.photo[randImage]
-    const img = `https://farm${pickedPhoto.farm}.staticflickr.com/${pickedPhoto.server}/${pickedPhoto.id}_${pickedPhoto.secret}_b.jpg`
-    const desc = resp.title
     try {
       document.getElementById('main').style.backgroundImage = `url(${img})`
       document.getElementById('image-desc').textContent = desc
@@ -178,7 +150,6 @@ class SceneryTab {
 
   async setBackgroundImage() {
     // await this.sc.setNasaImage()
-    // await this.sc.setFlickrImage()
     const randNum = Math.floor(Math.random() * 2) + 1
     if (randNum === 2) {
       await this.sc.setBingImage()

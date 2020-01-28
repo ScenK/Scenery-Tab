@@ -12,12 +12,8 @@
   "permissions": [
     "http://api.openweathermap.org/data/",
     "https://api.nasa.gov/planetary/apod",
-    "https://api.flickr.com/services/rest",
     "https://www.bing.com/*",
-    "http://www.bing.com/*",
     "https://api.pexels.com/v1",
-    "http://www.pexels.com/*",
-    "http://pexels.com/*",
     "geolocation",
     "storage",
     "tabs"
