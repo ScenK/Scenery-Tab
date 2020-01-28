@@ -77,9 +77,7 @@ class Scenery {
     // const randImage = Math.floor(Math.random() * 6) + 1; // returns a random integer from 1 to 56
     const randMkt = await this.getNewMktIndex()
     const randImage = await this.getNewImageIndex()
-    console.log(randImage, randMkt)
     const api = `${this.API.BING.url}&idx=${randImage}&n=10&mkt=${this.API.BING.mkt[randMkt]}`
-    console.log(api)
     const resp = await fetch(api)
     return await resp.json()
   }
@@ -105,7 +103,6 @@ class Scenery {
     } catch (err) {
 
     }
-    console.log(resp)
   }
 
   async setFlickrImage() {
@@ -120,7 +117,6 @@ class Scenery {
     } catch (err) {
 
     }
-    console.log(resp)
   }
 
   async setNasaImage() {
@@ -133,7 +129,6 @@ class Scenery {
     } catch (err) {
 
     }
-    console.log(resp)
   }
 
   async setBingImage() {
@@ -146,7 +141,6 @@ class Scenery {
     } catch (err) {
 
     }
-    console.log(resp)
   }
 }
 
@@ -180,14 +174,17 @@ class SceneryTab {
     } catch (err) {
 
     }
-    console.log(weatherData)
   }
 
   async setBackgroundImage() {
     // await this.sc.setNasaImage()
     // await this.sc.setFlickrImage()
-    // await this.sc.setBingImage()
-    await this.sc.setPexelsImage()
+    const randNum = Math.floor(Math.random() * 2) + 1
+    if (randNum === 2) {
+      await this.sc.setBingImage()
+    } else {
+      await this.sc.setPexelsImage()
+    }
   }
 
   getCurrentTime() {
@@ -215,6 +212,9 @@ async function main() {
   })
   document.getElementById('bookmark').addEventListener('click', () => {
     chrome.tabs.create({ "url": "chrome://bookmarks", "active": true });
+  })
+  document.getElementById('apps').addEventListener('click', () => {
+    chrome.tabs.create({ "url": "https://chrome.google.com/webstore/category/extensions", "active": true });
   })
 }
 
