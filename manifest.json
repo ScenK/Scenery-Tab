@@ -10,7 +10,7 @@
     "128": "src/public/icon-128.png"
   },
   "permissions": [
-    "http://api.openweathermap.org/data/",
+    "https://api.openweathermap.org/data/",
     "https://api.nasa.gov/planetary/apod",
     "https://www.bing.com/*",
     "https://api.pexels.com/v1",
