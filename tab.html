@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="src/public/style.css">
-  </head>
-  <body>
-    <div id="main">
-      <div class="left-corner"><div id="image-desc"></div></div>
-      <div class="top-right">
-        <a id="history">History</a>
-        <a id="bookmark">Bookmark</a>
-        <a id="apps">Apps</a>
-      </div>
 
-      <div class="right-corner">
-        <div id="time">00:00</div>
-        <div id="weather">
-          <span class="temp-wrapper">
-            <span id="temp">29</span>&#8457
-            <span id="weather-icon"><a title=""><img src=""></a></span>
-            <div class="hide" id="full-weather">
-              <div class="top">
-                <div class="date-wrapper">
-                  <div class="date"></div>
-                  <span class="label">Weather</span>
-                </div>
-                <div class="main-icon"><a title=""><img src=""></a></div>
-                <div class="detail">
-                  <span class="high"></span>
-                  <span class="current"></span>
-                  <span class="low"></span>
-                </div>
-              </div>
-              <div class="bottom">
-                <div class="day">
-                  <span class="date"></span>
-                  <span class="weather"><img src=""></span>
-                  <span class="high"></span>
-                  <span class="low"></span>
-                </div>
-              </div>
-            </div>
-          </span>
-          <span id="location">Default location</span>
-        </div>
+<head>
+  <link rel="stylesheet" href="src/public/style.css">
+</head>
+
+<body>
+  <div id="main">
+    <div class="left-corner">
+      <div id="image-desc"></div>
+    </div>
+    <div class="top-right">
+      <div class="" id="topMenu">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a id="history">History</a>
+          </li>
+          <li>
+            <a id="bookmark">Bookmark</a>
+          </li>
+          <li>
+            <a id="apps">Apps</a>
+          </li>
+        </ul>
       </div>
     </div>
-    <script src="src/modules/wallpaper.js"></script>
-    <script src="src/modules/weather.js"></script>
-    <script src="src/modules/time.js"></script>
-    <script src="src/background.js"></script>
-  </body>
+
+    <div class="right-corner">
+      <div id="time">00:00</div>
+      <div id="weather">
+        <span class="temp-wrapper">
+          <span id="temp">29</span>&#8457
+          <span id="weather-icon"><a title=""><img src=""></a></span>
+          <div class="hide" id="full-weather">
+            <div class="top">
+              <div class="date-wrapper">
+                <div class="date"></div>
+                <span class="label">Weather</span>
+              </div>
+              <div class="main-icon"><a title=""><img src=""></a></div>
+              <div class="detail">
+                <span class="high"></span>
+                <span class="current"></span>
+                <span class="low"></span>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="day">
+                <span class="date"></span>
+                <span class="weather"><img src=""></span>
+                <span class="high"></span>
+                <span class="low"></span>
+              </div>
+            </div>
+          </div>
+        </span>
+        <span id="location">Default location</span>
+      </div>
+    </div>
+  </div>
+  <script src="src/modules/wallpaper.js"></script>
+  <script src="src/modules/weather.js"></script>
+  <script src="src/modules/time.js"></script>
+  <script src="src/background.js"></script>
+</body>
+
 </html>

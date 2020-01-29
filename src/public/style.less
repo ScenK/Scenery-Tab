@@ -1,4 +1,5 @@
 body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   height: 100vh;
   width: 100%;
   padding: 0%;
@@ -9,6 +10,11 @@ body {
   width: 100%;
   background-size: cover;
   .hide { display: none !important; }
+  .is-visible {
+    visibility: visible;
+    transform: scale(1);
+    transition: transform .3s,visibility 0s 0s;
+  }
   .left-corner {
     position: absolute;
     bottom: 20px;
@@ -20,17 +26,24 @@ body {
   }
   .top-right {
     position: absolute;
-    top: 10px;
     right: 20px;
-    font-size: 1.5vh;
-    font-weight: 200;
-    color: white;
-    text-shadow: 1px 1px 1px #666;
-    a {
-      cursor: pointer;
-      margin-left: 10px;
-      &:hover {
-        text-decoration: underline;
+    ul { margin: 0; }
+    li {
+      float: left;
+      list-style: none;
+      a {
+        cursor: pointer;
+        color: white;
+        margin: 10px 5px;
+        padding: 5px 10px;
+        border-radius: 3px;
+        transition: background .3s ease;
+        line-height: 20px;
+        font-size: 15px;
+        display: inline-block;
+        &:hover {
+          background: rgba(0,0,0,.4);
+        }
       }
     }
   }

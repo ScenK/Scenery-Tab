@@ -134,8 +134,10 @@ class SceneryTab {
   })
   document.getElementById('weather').addEventListener('mouseover', () => {
     document.getElementById('full-weather').classList.remove('hide')
+    document.getElementById('full-weather').classList.add('is-visible')
   })
   document.getElementById('full-weather').addEventListener('mouseout', () => {
+    document.getElementById('full-weather').classList.remove('is-visible')
     document.getElementById('full-weather').classList.add('hide')
   })
 })()
