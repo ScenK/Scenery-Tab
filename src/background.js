@@ -1,7 +1,7 @@
 class SceneryTab {
 
   constructor() {
-    this.debug = true
+    this.debug = false
     this.wp = new Wallpaper()
     this.wt = new Weather()
     this.ti = new Time()
@@ -17,12 +17,19 @@ class SceneryTab {
     }
   }
 
-  async setWeather() {
-    const weatherData = await this.wt.getCurrentWeather()
-    this.set5DaysWeather()
+  async setWeather(cached = false) {
+    const weatherData = cached ? await this.wt.getWeatherDataCache('CurrentWeather') : await this.wt.getCurrentWeather()
+    if (!weatherData) {
+      return
+    }
+
+    if (!cached) {
+      this.set5DaysWeather()
+    }
     if (this.debug) {
       console.debug('weatherData', weatherData)
     }
+
     try {
       // set today
       document.querySelector('.top a').title = weatherData.weather[0].main
@@ -106,11 +113,16 @@ class SceneryTab {
 }
 
 
-(function main() {
+(async function main() {
   const st = new SceneryTab()
-  st.setWeather()
+  // use cached weather data
   st.setWallpaper()
   st.setCurrentTime()
+  await st.setWeather(true)
+
+  // update the latest weather data
+  st.setWeather(false)
+
   document.getElementById('history').addEventListener('click', () => {
     chrome.tabs.create({ "url": "chrome://history", "active": true });
   })

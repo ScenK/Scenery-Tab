@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Scenery Tab",
-  "version": "0.0.2",
+  "version": "0.0.3",
 
   "description": "An unexpected trip everyday by simply opening a new tab",
   "icons": {
