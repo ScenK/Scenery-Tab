@@ -108,13 +108,13 @@ class SceneryTab {
   await st.setWeather(true)
 
   document.getElementById('history').addEventListener('click', () => {
-    chrome.tabs.create({ "url": "chrome://history", "active": true });
+    chrome.tabs.update({ "url": "chrome://history", "active": true });
   })
   document.getElementById('bookmark').addEventListener('click', () => {
-    chrome.tabs.create({ "url": "chrome://bookmarks", "active": true });
+    chrome.tabs.update({ "url": "chrome://bookmarks", "active": true });
   })
   document.getElementById('apps').addEventListener('click', () => {
-    chrome.tabs.create({ "url": "https://chrome.google.com/webstore/category/extensions", "active": true });
+    chrome.tabs.update({ "url": "https://chrome.google.com/webstore/category/extensions", "active": true });
   })
   document.getElementById('weather').addEventListener('mouseover', () => {
     document.getElementById('full-weather').classList.remove('hide')
