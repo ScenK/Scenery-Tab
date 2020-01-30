@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="src/public/weather-icons.css">
   <link rel="stylesheet" href="src/public/style.css">
 </head>
 
@@ -29,16 +30,16 @@
     <div class="right-corner">
       <div id="time">00:00</div>
       <div id="weather">
-        <span class="temp-wrapper">
+        <div class="temp-wrapper">
           <span id="temp">29</span>&#8457
-          <span id="weather-icon"><a title=""><img src=""></a></span>
+          <span id="weather-icon"><a title=""><i class="wi"></i></a></span>
           <div class="hide" id="full-weather">
             <div class="top">
               <div class="date-wrapper">
                 <div class="date"></div>
                 <span class="label">Weather</span>
               </div>
-              <div class="main-icon"><a title=""><img src=""></a></div>
+              <div class="main-icon"><a title=""><i class="wi"></i></a></div>
               <div class="detail">
                 <span class="high"></span>
                 <span class="current"></span>
@@ -48,17 +49,18 @@
             <div class="bottom">
               <div class="day">
                 <span class="date"></span>
-                <span class="weather"><img src=""></span>
+                <span class="weather"><i class="wi"></i></span>
                 <span class="high"></span>
                 <span class="low"></span>
               </div>
             </div>
           </div>
-        </span>
+        </div>
         <span id="location">Default location</span>
       </div>
     </div>
   </div>
+  <script src="src/modules/crypto-js.min.js"></script>
   <script src="src/modules/wallpaper.js"></script>
   <script src="src/modules/weather.js"></script>
   <script src="src/modules/time.js"></script>

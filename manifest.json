@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Scenery Tab",
-  "version": "0.0.3",
+  "version": "0.2.0",
 
   "description": "An unexpected trip everyday by simply opening a new tab",
   "icons": {
@@ -10,7 +10,7 @@
     "128": "src/public/icon-128.png"
   },
   "permissions": [
-    "https://api.openweathermap.org/data/",
+    "https://weather-ydn-yql.media.yahoo.com/forecastrss/*",
     "https://api.nasa.gov/planetary/apod",
     "https://www.bing.com/*",
     "https://api.pexels.com/v1",

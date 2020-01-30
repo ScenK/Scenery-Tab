@@ -97,6 +97,7 @@ body {
 #main .right-corner #weather #full-weather .top .main-icon {
   vertical-align: middle;
   width: 300px;
+  font-size: 60px;
 }
 #main .right-corner #weather #full-weather .top .detail {
   vertical-align: middle;
@@ -107,12 +108,15 @@ body {
 #main .right-corner #weather #full-weather .top .detail .current {
   font-size: 4vh;
 }
+#main .right-corner #weather #full-weather .bottom {
+  width: 100%;
+}
 #main .right-corner #weather #full-weather .bottom .day {
   display: none;
 }
 #main .right-corner #weather #full-weather .bottom .day-clone {
   display: inline-block;
-  width: 16.6%;
+  width: 20%;
   padding: 10px 0;
   cursor: pointer;
 }
@@ -123,8 +127,12 @@ body {
   background: #294274;
 }
 #main .right-corner #weather #full-weather .bottom .day-clone .weather {
-  width: 100%;
-  margin-left: -5px;
+  font-size: 25px;
+  margin: 30px 0;
+}
+#main .right-corner #weather #full-weather .bottom .day-clone .high,
+#main .right-corner #weather #full-weather .bottom .day-clone .low {
+  line-height: 25px;
 }
 #main .right-corner div#time {
   margin-right: 20px;
@@ -132,7 +140,7 @@ body {
 #main .right-corner span#location {
   font-size: 1.5vh;
 }
-#main .right-corner span.temp-wrapper {
+#main .right-corner div.temp-wrapper {
   font-size: 15px;
   text-align: center;
 }
