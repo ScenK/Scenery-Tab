@@ -87,7 +87,7 @@ class Wallpaper {
       document.getElementById('main').style.backgroundImage = `url(${img})`
       document.getElementById('image-desc').textContent = desc
     } catch (err) {
-
+      console.error(err)
     }
   }
 
@@ -99,7 +99,7 @@ class Wallpaper {
       document.getElementById('main').style.backgroundImage = `url(${img})`
       document.getElementById('image-desc').textContent = desc
     } catch (err) {
-
+      console.error(err)
     }
   }
 
@@ -111,7 +111,7 @@ class Wallpaper {
       document.getElementById('main').style.backgroundImage = `url(https://bing.com${img})`
       document.getElementById('image-desc').textContent = desc
     } catch (err) {
-
+      console.error(err)
     }
   }
 }

@@ -1,7 +1,7 @@
 class SceneryTab {
 
   constructor() {
-    this.debug = true
+    this.debug = false
     this.wp = new Wallpaper()
     this.wt = new Weather()
     this.ti = new Time()
@@ -23,7 +23,7 @@ class SceneryTab {
       return
     }
 
-    if (!cached && weatherData) {
+    if (weatherData) {
       this.set5DaysWeather(weatherData)
     }
     if (this.debug) {
@@ -33,7 +33,6 @@ class SceneryTab {
     const curretTemp = Math.floor(weatherData.current_observation.condition.temperature)
     const icon = this.wt.weatherIcon[weatherData.current_observation.condition.code]
     const currentCondition = weatherData.current_observation.condition.text
-
     try {
       // set today's info in the detail container
       document.querySelector('.top .date').textContent = new Date().toLocaleDateString('en-US', {weekday: 'long'})
@@ -46,9 +45,8 @@ class SceneryTab {
       document.querySelector('#weather-icon .wi').classList.add(icon)
       document.querySelector('#weather-icon a').title = currentCondition
       document.getElementById('location').textContent = weatherData.location.city
-
     } catch (err) {
-
+      console.error(err)
     }
   }
 
@@ -76,12 +74,16 @@ class SceneryTab {
         const dayClone = container.querySelector('.day').cloneNode(true)
 
         dayClone.title = text
-        dayClone.querySelector('.date').textContent = date
-        dayClone.querySelector('.weather .wi').classList = `wi ${icon}`
-        dayClone.querySelector('.high').textContent = Math.floor(high)
-        dayClone.querySelector('.low').textContent = Math.floor(low)
-        dayClone.classList.add('day-clone');
-        container.querySelector('.bottom').appendChild(dayClone)
+        try {
+          dayClone.querySelector('.date').textContent = date
+          dayClone.querySelector('.weather .wi').classList = `wi ${icon}`
+          dayClone.querySelector('.high').textContent = Math.floor(high)
+          dayClone.querySelector('.low').textContent = Math.floor(low)
+          dayClone.classList.add('day-clone');
+          container.querySelector('.bottom').appendChild(dayClone)
+        } catch (err) {
+          console.error(err)
+        }
       }
 
     }
@@ -92,7 +94,7 @@ class SceneryTab {
     try {
       document.getElementById('time').textContent = now
     } catch (err) {
-
+      console.error(err)
     }
   }
 }
@@ -104,9 +106,6 @@ class SceneryTab {
   st.setWallpaper()
   st.setCurrentTime()
   await st.setWeather(true)
-
-  // update the latest weather data
-  st.setWeather(false)
 
   document.getElementById('history').addEventListener('click', () => {
     chrome.tabs.create({ "url": "chrome://history", "active": true });
@@ -125,4 +124,7 @@ class SceneryTab {
     document.getElementById('full-weather').classList.remove('is-visible')
     document.getElementById('full-weather').classList.add('hide')
   })
+
+  // update the latest weather data
+  await st.setWeather(false)
 })()
