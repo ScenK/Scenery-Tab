@@ -15,13 +15,13 @@ class Wallpaper {
       NASA: {
         url: 'https://api.nasa.gov/planetary/apod?',
         name: 'nasa',
-        key: 'LVNeWXbmsardIBvstFHdPPfT8LGlbApoMprJMUhq'
+        key: ''
       },
       PEXELS: {
         // url: 'https://api.pexels.com/v1/curated?',
         url: 'https://api.pexels.com/v1/search?',
         name: 'pexels',
-        key: '563492ad6f9170000100000193020503455d40199f42e79cda3be940'
+        key: ''
       }
     }
   }

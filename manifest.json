@@ -2,8 +2,7 @@
   "manifest_version": 2,
   "name": "Scenery Tab",
   "version": "0.2.1",
-
-  "description": "An unexpected trip everyday by simply opening a new tab",
+  "description": "A beautiful scenery photo whenever opening a new tab with the local forecast.",
   "icons": {
     "16": "src/public/icon-16.png",
     "48": "src/public/icon-48.png",

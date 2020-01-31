@@ -19,7 +19,7 @@ class SceneryTab {
 
   async setWeather(cached = false) {
     const weatherData = cached ? JSON.parse(await this.wt.getWeatherDataCache('CurrentWeather')) : await this.wt.getCurrentWeather()
-    if (!weatherData) {
+    if (!weatherData || weatherData.status === 'empty') {
       return
     }
 
