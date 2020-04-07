@@ -102,6 +102,20 @@ class Weather {
     return await resp.json();
   }
 
+  async getCelsiusUnit() {
+    return new Promise(done => {
+      chrome.storage.local.get('celsius', result => {
+        if (!result['celsius']) {
+          console.log('no cached unit available!')
+          done(false)
+        } else {
+          console.log('load cached unit.')
+          done(result['celsius']);
+        }
+      });
+    });
+  }
+
   async getWeatherDataCache(key) {
     return new Promise(done => {
       chrome.storage.local.get([key], result => {
@@ -124,5 +138,9 @@ class Weather {
         done(weather)
       });
     });
+  }
+
+  formatTemp(temp, celsius=false) {
+    return celsius ? (temp - 32)/1.8 : temp
   }
 }

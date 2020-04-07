@@ -18,30 +18,33 @@ class SceneryTab {
   }
 
   async setWeather(cached = false) {
+    const celsius = await this.wt.getCelsiusUnit()
     const weatherData = cached ? JSON.parse(await this.wt.getWeatherDataCache('CurrentWeather')) : await this.wt.getCurrentWeather()
     if (!weatherData || weatherData.status === 'empty') {
       return
     }
 
     if (weatherData) {
-      this.set5DaysWeather(weatherData)
+      this.set5DaysWeather(weatherData, celsius)
     }
     if (this.debug) {
       console.debug('weatherData', weatherData)
     }
 
-    const curretTemp = Math.floor(weatherData.current_observation.condition.temperature)
+    const curretTemp = Math.floor(this.wt.formatTemp(weatherData.current_observation.condition.temperature, celsius))
     const icon = this.wt.weatherIcon[weatherData.current_observation.condition.code]
+    const symbol = celsius ? '&#8451' : '&#8457'
     const currentCondition = weatherData.current_observation.condition.text
     try {
       // set today's info in the detail container
       document.querySelector('.top .date').textContent = new Date().toLocaleDateString('en-US', {weekday: 'long'})
       document.querySelector('.top a').title = currentCondition
       document.querySelector('.top .main-icon .wi').classList.add(icon)
-      document.querySelector('.top .detail .current').innerHTML = `${curretTemp}&#8457`
+      document.querySelector('.top .detail .current').innerHTML = `${curretTemp}${symbol}`
 
       // set main
       document.getElementById('temp').innerHTML = curretTemp
+      document.getElementById('temp-symbol').innerHTML = symbol
       document.querySelector('#weather-icon .wi').classList.add(icon)
       document.querySelector('#weather-icon a').title = currentCondition
       document.getElementById('location').textContent = weatherData.location.city
@@ -50,7 +53,7 @@ class SceneryTab {
     }
   }
 
-  async set5DaysWeather(weatherData) {
+  async set5DaysWeather(weatherData, celsius = false) {
     const container = document.getElementById('full-weather')
 
     // clean old elements
@@ -61,8 +64,8 @@ class SceneryTab {
     for (let i = 0; i < fiveDaysData.length; i++) {
       const date = fiveDaysData[i].day
       const icon = this.wt.weatherIcon[fiveDaysData[i].code]
-      const high = fiveDaysData[i].high
-      const low = fiveDaysData[i].low
+      const high = this.wt.formatTemp(fiveDaysData[i].high, celsius)
+      const low = this.wt.formatTemp(fiveDaysData[i].low, celsius)
       const text = fiveDaysData[i].text
 
       if (i === 0) {
@@ -87,6 +90,12 @@ class SceneryTab {
       }
 
     }
+  }
+
+  async setOppositeUnit() {
+    const celsius = await this.wt.getCelsiusUnit()
+
+    chrome.storage.local.set({'celsius': !celsius})
   }
 
   setCurrentTime() {
@@ -119,6 +128,10 @@ class SceneryTab {
   document.getElementById('weather').addEventListener('mouseover', () => {
     document.getElementById('full-weather').classList.remove('hide')
     document.getElementById('full-weather').classList.add('is-visible')
+  })
+  document.getElementById('weather').addEventListener('dblclick', async () => {
+    await st.setOppositeUnit()
+    await st.setWeather(true)
   })
   document.getElementById('full-weather').addEventListener('mouseout', () => {
     document.getElementById('full-weather').classList.remove('is-visible')
