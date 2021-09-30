@@ -2,7 +2,7 @@ class Weather {
   constructor() {
     this.BASE = {
       api: "https://api.openweathermap.org/data/2.5/onecall",
-      key: "71e8c71c98e8595d6727bb840067ad93",
+      key: "",
     };
   }
 
