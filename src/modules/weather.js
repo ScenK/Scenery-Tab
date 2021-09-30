@@ -2,9 +2,9 @@ class Weather {
   constructor() {
     this.BASE = {
       api: "https://weather-ydn-yql.media.yahoo.com/forecastrss",
-      key: "",
-      secret: "",
-      appId: ''
+      key: "dj0yJmk9Z1phRTFOaFNyQlV1JmQ9WVdrOU5WcGlabU5vTldrbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWY0",
+      secret: "078bdb02aae66633dd6697d93ce183172a5b5e29",
+      appId: '5Zbfch5i'
     };
 
     this.weatherIcon = {

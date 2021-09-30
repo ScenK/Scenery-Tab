@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Scenery Tab",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A beautiful scenery photo whenever opening a new tab with the local forecast.",
   "icons": {
     "16": "src/public/icon-16.png",
@@ -10,7 +10,6 @@
   },
   "permissions": [
     "https://weather-ydn-yql.media.yahoo.com/forecastrss/*",
-    "https://api.nasa.gov/planetary/apod",
     "https://www.bing.com/*",
     "https://api.pexels.com/v1",
     "geolocation",

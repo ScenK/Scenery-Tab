@@ -31,15 +31,10 @@ https://developer.chrome.com/extensions/api_index
 
 ### Installing
 
-Download the source code, fill in the api value in the `wallpaper.js` and `weather.js` by registing the free developer program on `NASA`, `PEXELS` and `Yahoo Weather`.
+Download the source code, fill in the api value in the `wallpaper.js` and `weather.js` by registing the free developer program on `PEXELS` and `Yahoo Weather`.
 
-- NASA images and PEXEL images:
+- PEXEL images:
 ```
-NASA: {
-  url: 'https://api.nasa.gov/planetary/apod?',
-  name: 'nasa',
-  key: ''
-},
 PEXELS: {
   // url: 'https://api.pexels.com/v1/curated?',
   url: 'https://api.pexels.com/v1/search?',

@@ -8,7 +8,6 @@ class SceneryTab {
   }
 
   async setWallpaper() {
-    // await this.sc.setNasaImage()
     const randNum = Math.floor(Math.random() * 2) + 1
     if (randNum === 2) {
       await this.wp.setBingImage()

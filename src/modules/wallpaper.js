@@ -12,16 +12,11 @@ class Wallpaper {
         ],
         name: 'bing'
       },
-      NASA: {
-        url: 'https://api.nasa.gov/planetary/apod?',
-        name: 'nasa',
-        key: ''
-      },
       PEXELS: {
         // url: 'https://api.pexels.com/v1/curated?',
         url: 'https://api.pexels.com/v1/search?',
         name: 'pexels',
-        key: ''
+        key: '563492ad6f9170000100000193020503455d40199f42e79cda3be940'
       }
     }
   }
@@ -68,33 +63,11 @@ class Wallpaper {
     return await resp.json()
   }
 
-  async getNasaImage() {
-    const randomDate = new Date(
-      new Date(2015, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(2015, 0, 1).getTime()));
-    const formatedDate = `${randomDate.getFullYear()}-${randomDate.getMonth()}-${randomDate.getDay()}`
-
-    const api = `${this.API.NASA.url}date=${formatedDate}&hd=true&api_key=${this.API.NASA.key}`
-    const resp = await fetch(api)
-    return await resp.json()
-  }
-
   async setPexelsImage() {
     const resp = await this.getPexelsImage()
     const img = resp.photos[0].src.original
     // const img = resp.photos[0].src.large2x
     const desc = resp.photos[0].photographer
-    try {
-      document.getElementById('main').style.backgroundImage = `url(${img})`
-      document.getElementById('image-desc').textContent = desc
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  async setNasaImage() {
-    const resp = await this.getNasaImage()
-    const img = resp.hdurl
-    const desc = resp.title
     try {
       document.getElementById('main').style.backgroundImage = `url(${img})`
       document.getElementById('image-desc').textContent = desc
