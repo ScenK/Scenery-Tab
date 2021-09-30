@@ -99,6 +99,10 @@ body {
   width: 300px;
   font-size: 60px;
 }
+#main .right-corner #weather #full-weather .top .main-icon .wi{
+  height: 100px;
+  width: 100px;
+}
 #main .right-corner #weather #full-weather .top .detail {
   vertical-align: middle;
   width: 100px;
@@ -128,7 +132,6 @@ body {
 }
 #main .right-corner #weather #full-weather .bottom .day-clone .weather {
   font-size: 25px;
-  margin: 30px 0;
 }
 #main .right-corner #weather #full-weather .bottom .day-clone .high,
 #main .right-corner #weather #full-weather .bottom .day-clone .low {

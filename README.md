@@ -31,7 +31,7 @@ https://developer.chrome.com/extensions/api_index
 
 ### Installing
 
-Download the source code, fill in the api value in the `wallpaper.js` and `weather.js` by registing the free developer program on `PEXELS` and `Yahoo Weather`.
+Download the source code, fill in the api value in the `wallpaper.js` and `weather.js` by registing the free developer program on `PEXELS` and `Open Weather`.
 
 - PEXEL images:
 ```
@@ -43,15 +43,13 @@ PEXELS: {
 }
 ```
 
-- Yahoo weather api:
+- Open Weather Api:
 ```
 class Weather {
   constructor() {
     this.BASE = {
-      api: "https://weather-ydn-yql.media.yahoo.com/forecastrss",
+      api: "https://api.openweathermap.org/data/2.5/onecall",
       key: "",
-      secret: "",
-      appId: ''
     };
 ```
 

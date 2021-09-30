@@ -1,7 +1,7 @@
 class SceneryTab {
 
   constructor() {
-    this.debug = false
+    this.debug = true
     this.wp = new Wallpaper()
     this.wt = new Weather()
     this.ti = new Time()
@@ -19,7 +19,7 @@ class SceneryTab {
   async setWeather(cached = false) {
     const celsius = await this.wt.getCelsiusUnit()
     const weatherData = cached ? JSON.parse(await this.wt.getWeatherDataCache('CurrentWeather')) : await this.wt.getCurrentWeather()
-    if (!weatherData || weatherData.status === 'empty') {
+    if (!weatherData || !weatherData.current || weatherData.status === 'empty') {
       return
     }
 
@@ -30,23 +30,23 @@ class SceneryTab {
       console.debug('weatherData', weatherData)
     }
 
-    const curretTemp = Math.floor(this.wt.formatTemp(weatherData.current_observation.condition.temperature, celsius))
-    const icon = this.wt.weatherIcon[weatherData.current_observation.condition.code]
+    const curretTemp = Math.floor(this.wt.formatTemp(weatherData.current.temp, celsius))
+    const icon = `https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}@2x.png`
     const symbol = celsius ? '&#8451' : '&#8457'
-    const currentCondition = weatherData.current_observation.condition.text
+    const currentCondition = weatherData.current.weather[0].description
     try {
       // set today's info in the detail container
       document.querySelector('.top .date').textContent = new Date().toLocaleDateString('en-US', {weekday: 'long'})
       document.querySelector('.top a').title = currentCondition
-      document.querySelector('.top .main-icon .wi').classList.add(icon)
+      document.querySelector('.top .main-icon .wi').style.backgroundImage = `url(${icon})`
       document.querySelector('.top .detail .current').innerHTML = `${curretTemp}${symbol}`
 
       // set main
       document.getElementById('temp').innerHTML = curretTemp
       document.getElementById('temp-symbol').innerHTML = symbol
-      document.querySelector('#weather-icon .wi').classList.add(icon)
+      document.querySelector('#weather-icon .wi').style.backgroundImage = `url(${icon})`
       document.querySelector('#weather-icon a').title = currentCondition
-      document.getElementById('location').textContent = weatherData.location.city
+      document.getElementById('location').textContent = 'Current Location'
     } catch (err) {
       console.error(err)
     }
@@ -58,14 +58,15 @@ class SceneryTab {
     // clean old elements
     document.querySelectorAll(".day-clone").forEach(e => e.parentNode.removeChild(e));
 
-    const fiveDaysData = weatherData.forecasts.slice(0, 6)
+    const fiveDaysData = weatherData.daily.slice(0, 6)
 
     for (let i = 0; i < fiveDaysData.length; i++) {
-      const date = fiveDaysData[i].day
-      const icon = this.wt.weatherIcon[fiveDaysData[i].code]
-      const high = this.wt.formatTemp(fiveDaysData[i].high, celsius)
-      const low = this.wt.formatTemp(fiveDaysData[i].low, celsius)
-      const text = fiveDaysData[i].text
+      const currentWeather = fiveDaysData[i]
+      const date = new Date(+currentWeather.dt * 1000).toDateString().split(' ')[0]
+      const icon = `https://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`
+      const high = this.wt.formatTemp(currentWeather.temp.max, celsius)
+      const low = this.wt.formatTemp(currentWeather.temp.min, celsius)
+      const text = currentWeather.weather[0].description
 
       if (i === 0) {
         // set today's additional info in the detail container
@@ -78,7 +79,7 @@ class SceneryTab {
         dayClone.title = text
         try {
           dayClone.querySelector('.date').textContent = date
-          dayClone.querySelector('.weather .wi').classList = `wi ${icon}`
+          dayClone.querySelector('.weather .wi').style.backgroundImage = `url(${icon})`
           dayClone.querySelector('.high').textContent = Math.floor(high)
           dayClone.querySelector('.low').textContent = Math.floor(low)
           dayClone.classList.add('day-clone');
