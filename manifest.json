@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Scenery Tab",
   "version": "1.0.0",
   "description": "A beautiful scenery photo whenever opening a new tab with the local forecast.",
