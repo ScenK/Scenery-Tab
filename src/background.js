@@ -123,7 +123,7 @@ class SceneryTab {
     chrome.tabs.update({ "url": "chrome://bookmarks", "active": true });
   })
   document.getElementById('apps').addEventListener('click', () => {
-    chrome.tabs.update({ "url": "https://microsoftedge.microsoft.com/addons?hl=en-US", "active": true });
+    chrome.tabs.update({ "url": "https://chrome.google.com/webstore/category/extensions", "active": true });
   })
   document.getElementById('weather').addEventListener('mouseover', () => {
     document.getElementById('full-weather').classList.remove('hide')
