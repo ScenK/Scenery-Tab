@@ -52,6 +52,7 @@ class Weather {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const weather = await this.getOpenWeather(pos)
         chrome.storage.local.set({'CurrentWeather': JSON.stringify(weather)})
+        chrome.storage.local.set({'WeatherUpdatedAt': new Date().getHours()})
         done(weather)
       });
     });

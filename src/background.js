@@ -5,6 +5,10 @@ class SceneryTab {
     this.wp = new Wallpaper()
     this.wt = new Weather()
     this.ti = new Time()
+
+    this.isChromeStore = false;
+    this.storeUrl = this.isChromeStore ? 'https://chrome.google.com/webstore/category/extensions'
+      : 'https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home'
   }
 
   async setWallpaper() {
@@ -123,7 +127,7 @@ class SceneryTab {
     chrome.tabs.update({ "url": "chrome://bookmarks", "active": true });
   })
   document.getElementById('apps').addEventListener('click', () => {
-    chrome.tabs.update({ "url": "https://chrome.google.com/webstore/category/extensions", "active": true });
+    chrome.tabs.update({ "url": st.storeUrl, "active": true });
   })
   document.getElementById('weather').addEventListener('mouseover', () => {
     document.getElementById('full-weather').classList.remove('hide')
@@ -138,6 +142,11 @@ class SceneryTab {
     document.getElementById('full-weather').classList.add('hide')
   })
 
-  // update the latest weather data
-  await st.setWeather(false)
+  chrome.storage.local.get('WeatherUpdatedAt', async result => {
+    if (!result['WeatherUpdatedAt'] || result['WeatherUpdatedAt'] - new Date().getHours() > 1) {
+      // update the latest weather no sooner than one hour
+      console.log('Update to the latest weather.')
+      await st.setWeather(false)
+    }
+  });
 })()
