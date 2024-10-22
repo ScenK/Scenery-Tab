@@ -6,9 +6,7 @@ class SceneryTab {
     this.wt = new Weather()
     this.ti = new Time()
 
-    this.isChromeStore = false;
-    this.storeUrl = this.isChromeStore ? 'https://chrome.google.com/webstore/category/extensions'
-      : 'https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home'
+    this.storeUrl = 'https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home'
   }
 
   async setWallpaper() {

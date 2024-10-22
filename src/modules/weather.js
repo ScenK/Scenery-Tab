@@ -1,8 +1,9 @@
 class Weather {
   constructor() {
+    this.debug = false;
     this.BASE = {
-      api: "https://api.openweathermap.org/data/2.5/onecall",
-      key: "71e8c71c98e8595d6727bb840067ad93",
+      api: "https://api.openweathermap.org/data/3.0/onecall",
+      key: "",
     };
   }
 
@@ -50,9 +51,18 @@ class Weather {
   getCurrentWeather() {
     return new Promise((done) => {
       navigator.geolocation.getCurrentPosition(async (pos) => {
-        const weather = await this.getOpenWeather(pos)
-        chrome.storage.local.set({'CurrentWeather': JSON.stringify(weather)})
-        chrome.storage.local.set({'WeatherUpdatedAt': new Date().getHours()})
+        let weather = null
+        try {
+          weather = await this.getOpenWeather(pos)
+        } catch (err) {
+          if (this.debug) {
+            console.error(err)
+          }
+        }
+        if (weather) {
+          chrome.storage.local.set({'CurrentWeather': JSON.stringify(weather)})
+          chrome.storage.local.set({'WeatherUpdatedAt': new Date().getHours()})
+        }
         done(weather)
       });
     });
