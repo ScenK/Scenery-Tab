@@ -28,9 +28,9 @@ class SceneryTab {
     if (weatherData) {
       this.set5DaysWeather(weatherData, celsius)
     }
-    if (this.debug) {
-      console.debug('weatherData', weatherData)
-    }
+    // if (this.debug) {
+    //   console.debug('weatherData', weatherData)
+    // }
 
     const curretTemp = Math.floor(this.wt.formatTemp(weatherData.current.temp, celsius))
     const icon = `https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}@2x.png`
@@ -141,10 +141,16 @@ class SceneryTab {
   })
 
   chrome.storage.local.get('WeatherUpdatedAt', async result => {
-    if (!result['WeatherUpdatedAt'] || result['WeatherUpdatedAt'] - new Date().getHours() > 1) {
-      // update the latest weather no sooner than one hour
-      console.log('Update to the latest weather.')
-      await st.setWeather(false)
+    const currentHour = new Date().getHours();
+    const cachedHour = result['WeatherUpdatedAt'];
+
+    // Calculate the difference considering the day transition
+    const hourDifference = (currentHour - cachedHour + 24) % 24;
+
+    if (!cachedHour || hourDifference > 2) {
+      // update the latest weather if more than 2 hours have passed
+      console.log('Update to the latest weather.');
+      await st.setWeather(false);
     }
   });
 })()
