@@ -127,9 +127,12 @@ class SceneryTab {
   document.getElementById('apps').addEventListener('click', () => {
     chrome.tabs.update({ "url": st.storeUrl, "active": true });
   })
-  document.getElementById('weather').addEventListener('mouseover', () => {
-    document.getElementById('full-weather').classList.remove('hide')
-    document.getElementById('full-weather').classList.add('is-visible')
+  document.getElementById('weather').addEventListener('mouseover', (e) => {
+    const fullWeather = document.getElementById('full-weather')
+    fullWeather.classList.remove('hide')
+    fullWeather.classList.add('is-visible')
+    fullWeather.style.top = `-${fullWeather.clientHeight}px`
+    fullWeather.style.right = `10px`
   })
   document.getElementById('weather').addEventListener('dblclick', async () => {
     await st.setOppositeUnit()

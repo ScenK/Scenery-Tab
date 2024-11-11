@@ -73,22 +73,23 @@ body {
 }
 #main .right-corner #weather #full-weather {
   position: absolute;
-  top: -350px;
-  left: -500px;
-  width: 520px;
-  height: 300px;
   background: #2C467D;
+  width: 20vw;
+  min-width: min-content;
   border-radius: 5px;
   padding: 20px;
 }
 #main .right-corner #weather #full-weather .top {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
 }
 #main .right-corner #weather #full-weather .top .date-wrapper {
-  vertical-align: middle !important;
   font-size: 2vh;
   text-align: left;
-  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 #main .right-corner #weather #full-weather .top .date-wrapper .date {
   color: #F0D84B;
@@ -96,7 +97,7 @@ body {
 }
 #main .right-corner #weather #full-weather .top .main-icon {
   vertical-align: middle;
-  width: 300px;
+  min-width: 210px;
   font-size: 60px;
 }
 #main .right-corner #weather #full-weather .top .main-icon .wi{
@@ -104,10 +105,11 @@ body {
   width: 100px;
 }
 #main .right-corner #weather #full-weather .top .detail {
-  vertical-align: middle;
-  width: 100px;
-  font-size: 1.2vh;
+  font-size: 1.2em;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 #main .right-corner #weather #full-weather .top .detail .current {
   font-size: 4vh;
