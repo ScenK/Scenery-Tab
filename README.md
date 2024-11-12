@@ -73,3 +73,16 @@ The released version can be installed on the Chrome App Store:
 Any ideas or development contributions are wellcome.
 
 
+Run the Webpack builds for each store and environment.
+```
+npm run build:chrome:dev
+npm run build:chrome:prod
+npm run build:edge:dev
+npm run build:edge:prod
+```
+
+Run the Webpack dev server for each store and environment.
+```
+npm run start:chrome:dev
+npm run start:edge:dev
+```

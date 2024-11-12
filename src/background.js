@@ -1,3 +1,9 @@
+import Wallpaper from './modules/wallpaper.js'
+import Weather from './modules/weather.js'
+import Time from './modules/time.js'
+
+import './styles.less'
+
 class SceneryTab {
 
   constructor() {
@@ -6,7 +12,7 @@ class SceneryTab {
     this.wt = new Weather()
     this.ti = new Time()
 
-    this.storeUrl = 'https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home'
+    this.storeUrl = STORE_URL
   }
 
   async setWallpaper() {

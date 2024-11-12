@@ -1,9 +1,9 @@
-class Weather {
+export default class Weather {
   constructor() {
     this.debug = false;
     this.BASE = {
       api: "https://api.openweathermap.org/data/3.0/onecall",
-      key: "",
+      key: OPENWEATHERMAP_API_KEY,
     };
   }
 

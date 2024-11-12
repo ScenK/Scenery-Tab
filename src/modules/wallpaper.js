@@ -1,4 +1,4 @@
-class Wallpaper {
+export default class Wallpaper {
   constructor() {
     this.API = {
       BING: {

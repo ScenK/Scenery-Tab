@@ -4,9 +4,9 @@
   "version": "1.3.2",
   "description": "A beautiful scenery photo whenever opening a new tab with the local forecast.",
   "icons": {
-    "16": "src/public/icon-16.png",
-    "48": "src/public/icon-48.png",
-    "128": "src/public/icon-128.png"
+    "16": "public/icon-16.png",
+    "48": "public/icon-48.png",
+    "128": "public/icon-128.png"
   },
   "permissions": [
     "geolocation",
