@@ -16,7 +16,7 @@ export default class Wallpaper {
         // url: 'https://api.pexels.com/v1/curated?',
         url: 'https://api.pexels.com/v1/search?',
         name: 'pexels',
-        key: '563492ad6f9170000100000193020503455d40199f42e79cda3be940'
+        key: PEXELS_API_KEY
       }
     }
   }
