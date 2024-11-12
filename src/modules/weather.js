@@ -1,6 +1,5 @@
 export default class Weather {
   constructor() {
-    this.debug = false;
     this.BASE = {
       api: "https://api.openweathermap.org/data/3.0/onecall",
       key: OPENWEATHERMAP_API_KEY,
@@ -24,10 +23,10 @@ export default class Weather {
     return new Promise(done => {
       chrome.storage.local.get('celsius', result => {
         if (!result['celsius']) {
-          console.log('no cached unit available!')
+          IS_DEV && console.log('no cached unit available.')
           done(false)
         } else {
-          console.log('load cached unit.')
+          IS_DEV && console.log('load cached unit.')
           done(result['celsius']);
         }
       });
@@ -38,10 +37,10 @@ export default class Weather {
     return new Promise(done => {
       chrome.storage.local.get([key], result => {
         if (!result[key]) {
-          console.log('no cache available!')
+          IS_DEV && console.log('no cache available.')
           done('{"status": "empty"}')
         } else {
-          console.log('load cached weather.')
+          IS_DEV && console.log('load cached weather.')
           done(result[key]);
         }
       });
@@ -55,13 +54,13 @@ export default class Weather {
         try {
           weather = await this.getOpenWeather(pos)
         } catch (err) {
-          if (this.debug) {
-            console.error(err)
-          }
+          IS_DEV && console.error('weather data fetch failed!')
         }
-        if (weather) {
+        if (weather && !weather.cod) {
           chrome.storage.local.set({'CurrentWeather': JSON.stringify(weather)})
           chrome.storage.local.set({'WeatherUpdatedAt': new Date().getHours()})
+        } else {
+          IS_DEV && console.error('weather data fetch failed!')
         }
         done(weather)
       });

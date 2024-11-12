@@ -7,7 +7,6 @@ import './styles.less'
 class SceneryTab {
 
   constructor() {
-    this.debug = true
     this.wp = new Wallpaper()
     this.wt = new Weather()
     this.ti = new Time()
@@ -34,9 +33,8 @@ class SceneryTab {
     if (weatherData) {
       this.set5DaysWeather(weatherData, celsius)
     }
-    // if (this.debug) {
-    //   console.debug('weatherData', weatherData)
-    // }
+
+    IS_DEV && console.debug('weatherData', weatherData)
 
     const curretTemp = Math.floor(this.wt.formatTemp(weatherData.current.temp, celsius))
     const icon = `https://openweathermap.org/img/wn/${weatherData.current.weather[0].icon}@2x.png`
@@ -56,7 +54,7 @@ class SceneryTab {
       document.querySelector('#weather-icon a').title = currentCondition
       document.getElementById('location').textContent = 'Current Location'
     } catch (err) {
-      console.error(err)
+      IS_DEV && console.error(err)
     }
   }
 
@@ -93,7 +91,7 @@ class SceneryTab {
           dayClone.classList.add('day-clone');
           container.querySelector('.bottom').appendChild(dayClone)
         } catch (err) {
-          console.error(err)
+          IS_DEV && console.error(err)
         }
       }
 
@@ -111,7 +109,7 @@ class SceneryTab {
     try {
       document.getElementById('time').textContent = now
     } catch (err) {
-      console.error(err)
+      IS_DEV && console.error(err)
     }
   }
 }

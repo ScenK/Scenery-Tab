@@ -1,88 +1,106 @@
-# Scenery Tab Chrome Extention
+# Scenery Tab Browser Extension
 
 ## Table of Contents
 
 - [About](#about)
 - [Getting Started](#getting_started)
+- [Development](#development)
+- [Production](#production)
 - [Usage](#usage)
 - [Contributing](#contribution)
 - [Privacy Policy](./privacy.md)
 
-## About <a name = "about"></a>
+## About <a name="about"></a>
 
-The initial motivation for creating this extension was to replace the dead 'Dream After' extension that I had been using many years.
+The initial motivation for creating this extension was to replace the dead 'Dream After' extension that I had been using for many years.
 
-## Getting Started <a name = "getting_started"></a>
+## Getting Started <a name="getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-If you are new to the chrome extension development, I highly recommend reading the official document first.
+If you are new to Browser extension development, I highly recommend reading the official documentation first.
 
 ```
 https://developer.chrome.com/extensions
 ```
 
-This is the reference for the available API from chrome.
+This is the reference for the available API from Chrome.
 ```
 https://developer.chrome.com/extensions/api_index
 ```
 
 ### Installing
 
-Download the source code, fill in the api value in the `wallpaper.js` and `weather.js` by registing the free developer program on `PEXELS` and `Open Weather`.
+1. **Download the Source Code**: Clone the repository to your local machine.
 
-- PEXEL images:
-```
-PEXELS: {
-  // url: 'https://api.pexels.com/v1/curated?',
-  url: 'https://api.pexels.com/v1/search?',
-  name: 'pexels',
-  key: ''
-}
-```
+2. **Set Up Environment Variables**: Create a `.env` file in the root directory of the project. Fill in the API keys by registering for the free developer programs on `PEXELS` and `Open Weather`.
+  You can refer to the `.env.local.example` file for the structure.
 
-- Open Weather Api:
-```
-class Weather {
-  constructor() {
-    this.BASE = {
-      api: "https://api.openweathermap.org/data/2.5/onecall",
-      key: "",
-    };
-```
+   Example `.env` file:
+   ```
+   PEXELS_API_KEY=your_pexels_api_key
+   OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
+   ```
 
-Install the unpacked extension on the browser:
-```
-Open the Extension Management page by navigating to chrome://extensions.
+3. **Configure API Endpoints**: The API keys will be automatically picked up from the `.env` file. Ensure that your `wallpaper.js` and `weather.js` files are set up to use these environment variables.
 
-Enable Developer Mode by clicking the toggle switch next to Developer mode.
+   - PEXELS images:
+     ```javascript
+     PEXELS: {
+       url: 'https://api.pexels.com/v1/search?',
+       name: 'pexels',
+       key: process.env.PEXELS_API_KEY
+     }
+     ```
 
-Click the LOAD UNPACKED button and select the extension directory.
-```
+   - Open Weather API:
+     ```javascript
+     class Weather {
+       constructor() {
+         this.BASE = {
+           api: "https://api.openweathermap.org/data/2.5/onecall",
+           key: process.env.OPENWEATHERMAP_API_KEY,
+         };
+       }
+     }
+     ```
 
+4. **Install Dependencies**: Run the following command to install the necessary dependencies:
+   ```
+   npm install
+   ```
 
-## Usage <a name = "usage"></a>
+## Development <a name="development"></a>
 
-The released version can be installed on the Chrome App Store:
-  https://chrome.google.com/webstore/detail/scenery-tab/nfbonabaanjojlhechnjjakifgdncbgb
+To start developing the extension, follow these steps:
 
-## Contributing <a name = "contribution"></a>
+1. **Run the Development Server**: Use Webpack's development server to serve the extension locally.
+   ```
+   npm run start:chrome:dev
+   npm run start:edge:dev
+   ```
 
-Any ideas or development contributions are wellcome.
+2. **Load the Unpacked Extension**:
+   - Open the Extension Management page by navigating to `chrome://extensions`.
+   - Enable Developer Mode by clicking the toggle switch next to Developer mode.
+   - Click the LOAD UNPACKED button and select the ./dist directory.
 
+3. **Hot Module Replacement**: The development server supports hot module replacement, allowing you to see changes in real-time without reloading the extension.
 
-Run the Webpack builds for each store and environment.
-```
-npm run build:chrome:dev
-npm run build:chrome:prod
-npm run build:edge:dev
-npm run build:edge:prod
-```
+## Production <a name="production"></a>
 
-Run the Webpack dev server for each store and environment.
-```
-npm run start:chrome:dev
-npm run start:edge:dev
-```
+To prepare the extension for production, follow these steps:
+
+1. **Build the Extension**: Run the Webpack build scripts to create optimized production builds.
+   ```
+   npm run build:chrome:prod
+   npm run build:edge:prod
+   ```
+
+2. **Package the Extension**: Zip the `dist` folder and upload it to the related Web Store.
+
+## Contributing <a name="contribution"></a>
+
+Any ideas or development contributions are welcome.

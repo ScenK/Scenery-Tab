@@ -5,7 +5,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 
-module.exports = (env) => {
+module.exports = (env, argv) => {
+  const mode = argv && argv.mode ? argv.mode : "production"; // Default to 'production' if not specified
+
   const requiredEnvVars = {
     CHROME_STORE_URL: process.env.CHROME_STORE_URL,
     EDGE_STORE_URL: process.env.EDGE_STORE_URL,
@@ -19,6 +21,8 @@ module.exports = (env) => {
       throw new Error(`${key} not found. Please check your .env file.`);
     }
   });
+
+  console.log(`Running in ${mode} mode`);
 
   const storeUrl = requiredEnvVars[`${env.store.toUpperCase()}_STORE_URL`];
 
@@ -36,6 +40,7 @@ module.exports = (env) => {
         },
       ],
     },
+    mode, // Set the mode in the Webpack configuration
     plugins: [
       new MiniCssExtractPlugin({
         filename: "styles.css",
@@ -43,7 +48,6 @@ module.exports = (env) => {
       new CopyWebpackPlugin({
         patterns: [
           { from: "src/manifest.json", to: "manifest.json" },
-          { from: "src/privacy.md", to: "privacy.md" },
           { from: "src/tab.html", to: "tab.html" },
           { from: "public", to: "public" },
         ],
@@ -54,6 +58,7 @@ module.exports = (env) => {
           requiredEnvVars.OPENWEATHERMAP_API_KEY
         ),
         PEXELS_API_KEY: JSON.stringify(requiredEnvVars.PEXELS_API_KEY),
+        IS_DEV: JSON.stringify(mode === "development"),
       }),
     ],
   };
